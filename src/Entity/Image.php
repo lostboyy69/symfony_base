@@ -19,6 +19,7 @@ class Image
     #[ORM\Column(length: 255)]
     private ?string $altTxt = null;
 
+ 
     public function getId(): ?int
     {
         return $this->id;
@@ -47,4 +48,6 @@ class Image
 
         return $this;
     }
+
+    
 }

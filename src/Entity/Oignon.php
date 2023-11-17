@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PainRepository;
+use App\Repository\OignonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PainRepository::class)]
-class Pain
+#[ORM\Entity(repositoryClass: OignonRepository::class)]
+class Oignon
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,17 +18,15 @@ class Pain
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'pain', targetEntity: Burger::class)]
+    #[ORM\ManyToMany(targetEntity: Burger::class, mappedBy: 'oignons')]
     private Collection $burgers;
 
-    
     public function __construct()
     {
         $this->burgers = new ArrayCollection();
     }
 
     
-
     public function getId(): ?int
     {
         return $this->id;
@@ -58,7 +56,7 @@ class Pain
     {
         if (!$this->burgers->contains($burger)) {
             $this->burgers->add($burger);
-            $burger->setPain($this);
+            $burger->addOignon($this);
         }
 
         return $this;
@@ -67,18 +65,11 @@ class Pain
     public function removeBurger(Burger $burger): static
     {
         if ($this->burgers->removeElement($burger)) {
-            // set the owning side to null (unless already changed)
-            if ($burger->getPain() === $this) {
-                $burger->setPain(null);
-            }
+            $burger->removeOignon($this);
         }
 
         return $this;
     }
 
     
-
-    
-
-   
 }
