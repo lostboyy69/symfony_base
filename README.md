@@ -1,4 +1,4 @@
-## 🦕
+## 🦕 MANFREDA ANGEL RA grp 1
 ## https://symfony-course.vercel.app
 ## php bin/console make:entity
 ## "php bin/console doctrine:database:create" OU "php bin/console d:d:c"
